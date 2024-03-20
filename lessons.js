@@ -2,17 +2,17 @@ const LESSONS = [
     {
       id: 1,
       subject: 'Programming',
-      location: '19 G-0-2 Computer Lab,DKP',
+      location: '19 G-0-2,DKP',
       price: 50,
-      spaces: 5,
+      spaces: 25,
       icon: 'fas fa-superscript'
     },
     {
       id: 2,
       subject: 'Chemistry',
-      location: '19 G-1-4,DKP',
+      location: 'Chemistry lab',
       price: 30,
-      spaces: 3,
+      spaces: 13,
       icon: 'fas fa-flask'
     },
     {
@@ -20,7 +20,7 @@ const LESSONS = [
       subject: 'History',
       location: '19 G-3-7,DKP',
       price: 25,
-      spaces: 8,
+      spaces: 7,
       icon: 'fas fa-history'
     },
     {
@@ -36,7 +36,7 @@ const LESSONS = [
       subject: 'Anatomy',
       location: '19 G-1-2,DKP',
       price: 35,
-      spaces: 4,
+      spaces: 8,
       icon: 'fas fa-heartbeat'
     },
     {
@@ -44,7 +44,7 @@ const LESSONS = [
       subject: 'Physics',
       location: '17 G-0-1,DKP',
       price: 35,
-      spaces: 2,
+      spaces: 12,
       icon: 'fas fa-atom'
     },
     {
@@ -57,7 +57,7 @@ const LESSONS = [
     },
     {
       id: 8,
-      subject: 'Painting',
+      subject: 'Art',
       location: '15 G-2-4 Studio,DKP',
       price: 30,
       spaces: 7,
@@ -68,16 +68,16 @@ const LESSONS = [
       subject: 'Guitar',
       location: '18 G17,DKP',
       price: 15,
-      spaces: 4,
+      spaces: 5,
       icon: 'fas fa-guitar'
     },
     {
       id: 10,
-      subject: 'Yoga',
+      subject: 'chess',
       location: '19 G07,DKP',
       price: 20,
       spaces: 10,
-      icon: 'fas fa-peace'
+      icon: 'fas fa-chess'
     }
   ];
   
