@@ -1,7 +1,7 @@
 /* General Styles */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #87CEEB;
+    background-color: #FFFFFF;
     color: #68B9C5;
     margin: 0;
     padding: 0;
@@ -9,15 +9,15 @@ body {
   
   h1, h2, h3 {
     color: #68B9C5;
-    margin: 0.5rem 0;
+    margin: auto;
   }
   
   button {
-    background-color: #607F76;
+    background-color: #FFFFFF;
     color: #fff;
     border: none;
     padding: 0.5rem 1rem;
-    border-radius: 0.25rem;
+    border-radius: 4.25rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
@@ -35,18 +35,18 @@ body {
     padding: 0.5rem;
     border: 1px solid #ddd;
     border-radius: 0.25rem;
-    margin-bottom: 1rem;
+    margin-bottom: auto;
   }
   
-  /* App Container */
+  /* App Container
   #app {
-    max-width: 800px;
-    margin: 2rem auto;
+    max-width: 8000px;
+    margin: auto;
     padding: 1rem;
     background-color: #607F76;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 0.5rem;
-  }
+  } */
   
   /* Lesson List */
   .lesson {
@@ -68,7 +68,7 @@ body {
   
   /* Shopping Cart */
   .cart {
-    margin-top: 2rem;
+    margin-top: auto;
   }
   
   .cart ul {
@@ -80,10 +80,10 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 0.5rem;
+    margin-bottom: auto;
   }
   
   /* Checkout */
   .checkout {
-    margin-top: 2rem;
+    margin-top: auto;
   }
