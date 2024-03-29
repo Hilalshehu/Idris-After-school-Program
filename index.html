@@ -13,28 +13,33 @@
 </head>
 
 <body>
-  <div id="app" class="container bg-secondary">
+  <div id="app" class="container">
     <div class=""><b>
-      <h1 class="display-6">After School Lessons</h1>
-      <hr class="my-5" /></b>
-      <div class="d-flex justify-content-end">
+        <h1 class="display-6">After School Lessons</h1>
+        <hr class="my-5" />
+      </b>
+      <div class>
         <a href="thankyou.html" class="btn btn-primary" :class="{ 'disabled': cart.length === 0 }"
           @click.prevent="toggleCart">
-          Shopping Cart <span class="badge badge-light">{{ cartItemCount }}</span>
+          Shopping Cart <span>{{ cartItemCount }}</span>
         </a>
       </div>
 
+      <div v-if="showCart" class="container">
+        <div class="row">
+          <div class="col-md-12">
 
-      <div v-if="showCart" class="container bg-secondary">
-        <h2>Shopping Cart</h2>
-        <ul class="list-group">
-          <li v-for="item in cart" :key="item.id" class="list-group-item">
-            {{ item.subject }} - aed{{ item.price }}
-            <button @click="removeFromCart(item)" class="btn btn-danger btn-sm float-right">
-              Remove
-            </button>
-          </li>
-        </ul>
+            <h2>Shopping Cart</h2>
+            <ul class="list-group">
+              <li v-for="item in cart" :key="item.id" class="list-group-item">
+                {{ item.subject }} - aed{{ item.price }}
+                <button @click="removeFromCart(item)" class="btn btn-danger btn-sm float-right">
+                  Remove
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
 
         <!-- Checkout Functionality -->
         <div>
@@ -44,33 +49,36 @@
           </div>
           <div class="form-group">
             <input type="number" v-model="phone" class="form-control" placeholder="Phone number" />
+
           </div>
           <button :disabled="!validForm" @click="checkout" class="btn btn-primary">
-            <span class="badge badge-light">{{ cartItemCount }}</span>
+            <span>{{ cartItemCount }}</span>
             Checkout
           </button>
         </div>
       </div>
 
-      <div v-else class="container bg-secondary">
+      <div v-else class="container">
         <!-- Search Functionality -->
-        <div class="d-flex justify-content-end">
-          <input type="text" v-model="searchQuery" placeholder="Search lessons..." />
-        </div>
-        <!-- Sort Functionality -->
-        <div class="form-group">
-          <select v-model="sortOption" class="form-control" style="width: 350px">
-            <option value="">Sort by</option>
-            <option value="subject">Subject</option>
-            <option value="location">Location</option>
-            <option value="price">Price</option>
-            <option value="spaces">Spaces</option>
-          </select>
-          <br />
-        <select v-model="sortOrder" class="form-control" style="width: 350px">
-          <option value="asc">Ascending</option>
-          <option value="desc">Descending</option>
-        </select>
+        <div class="row">
+          <div class="col-md-12">
+            <input type="text" v-model="searchQuery" placeholder="Search lessons..." />
+          </div>
+          <!-- Sort Functionality -->
+          <div class="form-group">
+            <select v-model="sortOption" class="form-control" style="width: 350px">
+              <option value="">Sort by</option>
+              <option value="subject">Subject</option>
+              <option value="location">Location</option>
+              <option value="price">Price</option>
+              <option value="spaces">Spaces</option>
+            </select>
+            <br />
+            <select v-model="sortOrder" class="form-control" style="width: 350px">
+              <option value="asc">Ascending</option>
+              <option value="desc">Descending</option>
+            </select>
+          </div>
         </div>
         <button @click="sortLessons()" class="btn btn-primary">Sort</button>
 
@@ -85,8 +93,9 @@
                 <h5>{{ lesson.subject }}</h5>
                 <p>Location: {{ lesson.location }}</p>
                 <p>Price: AED{{ lesson.price }}</p>
-
                 <p>Spaces: {{ lesson.spaces }}</p>
+
+                
 
                 <button :disabled="lesson.spaces === 0" @click="addToCart(lesson)" class="btn btn-primary">
                   Add to Cart
@@ -95,12 +104,14 @@
             </div>
           </div>
         </div>
+
       </div>
+
     </div>
 
     <script src="lessons.js"></script>
     <script>
-     const app = new Vue({
+      const app = new Vue({
         el: "#app",
         data: {
           lessons: LESSONS,
@@ -110,10 +121,10 @@
           searchQuery: "",
           sortOrder: "asc",
           name: "",
-          phone: "",
-        },
-  
-        
+          phone: "",
+        },
+
+
         computed: {
           filteredLessons() {
             let filtered = this.lessons;
@@ -134,10 +145,10 @@
           validForm() {
             return (
               this.name.match(/^[a-zA-Z\s]+$/) && this.phone.match(/^\d+$/)
-              
-              );
-                          
-            
+
+            );
+
+
           },
           cartItemCount() {
             return this.cart.length;
@@ -170,8 +181,8 @@
                 if (a[this.sortOption] > b[this.sortOption]) return 1 * order;
                 return 0;
               });
-            }
-          },
+            }
+          },
           checkout() {
             if (this.validForm) {
               alert(

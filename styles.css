@@ -37,17 +37,7 @@ body {
     border-radius: 0.25rem;
     margin-bottom: auto;
   }
-  
-  /* App Container
-  #app {
-    max-width: 8000px;
-    margin: auto;
-    padding: 1rem;
-    background-color: #607F76;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 0.5rem;
-  } */
-  
+    
   /* Lesson List */
   .lesson {
     display: flex;
