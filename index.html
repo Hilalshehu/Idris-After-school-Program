@@ -15,18 +15,18 @@
 <body>
   <div id="app" class="container">
     <div class=""><b>
-        <h1 class="display-6">After School Lessons</h1>
+        <h1 class="display-6">Idris After School Lessons</h1>
         <hr class="my-5" />
       </b>
       <div class>
-        <a href="thankyou.html" class="btn btn-primary" :class="{ 'disabled': cart.length === 0 }"
+        <button class="btn btn-primary float-end" :class="{ 'disabled': cart.length === 0 }"
           @click.prevent="toggleCart">
           Shopping Cart <span>{{ cartItemCount }}</span>
-        </a>
+        </button>
       </div>
 
       <div v-if="showCart" class="container">
-        <div class="row">
+        <div class="column">
           <div class="col-md-12">
 
             <h2>Shopping Cart</h2>
@@ -51,7 +51,8 @@
             <input type="number" v-model="phone" class="form-control" placeholder="Phone number" />
 
           </div>
-          <button :disabled="!validForm" @click="checkout" class="btn btn-primary">
+        
+          <button :disabled="!validForm" @click="checkout" class="btn btn-outline-primary" v-bind:disabled="cart.length==0">
             <span>{{ cartItemCount }}</span>
             Checkout
           </button>
@@ -61,11 +62,11 @@
       <div v-else class="container">
         <!-- Search Functionality -->
         <div class="row">
-          <div class="col-md-12">
-            <input type="text" v-model="searchQuery" placeholder="Search lessons..." />
+          <div class="col-md-6">
+            <input type="text" class="form-control " v-model="searchQuery" placeholder="Search lessons..." />
           </div>
           <!-- Sort Functionality -->
-          <div class="form-group">
+          <div class="form-group col-md-6">
             <select v-model="sortOption" class="form-control" style="width: 350px">
               <option value="">Sort by</option>
               <option value="subject">Subject</option>
@@ -77,16 +78,16 @@
             <select v-model="sortOrder" class="form-control" style="width: 350px">
               <option value="asc">Ascending</option>
               <option value="desc">Descending</option>
-            </select>
+            </select><br>
+            <button @click="sortLessons()" class="btn btn-primary">Sort</button>
           </div>
         </div>
-        <button @click="sortLessons()" class="btn btn-primary">Sort</button>
 
 
         <hr class="my-5" />
         <!-- Display List of Lessons -->
         <div class="row">
-          <div class="col-md-4" v-for="lesson in filteredLessons" :key="lesson.id">
+          <div class="col-md-4 mt-1 mb-1 shadow" v-for="lesson in filteredLessons" :key="lesson.id">
             <div class="card">
               <div class="card-body">
                 <i :class="lesson.icon"></i>
@@ -191,7 +192,7 @@
               this.cart = [];
               this.name = "";
               this.phone = "";
-              window.location.href = 'Thankyou.html';
+              window.location.href = 'Thank you.html';
             }
           },
         },
