@@ -18,12 +18,14 @@
         <h1 class="display-6">Idris After School Lessons</h1>
         <hr class="my-5" />
       </b>
-      <div class>
+
+      <button v-on:click="toggleCart">Test</button>
+      
         <button class="btn btn-primary float-end" :class="{ 'disabled': cart.length === 0 }"
-          @click.prevent="toggleCart">
+        @click="toggleCart">
           Shopping Cart <span>{{ cartItemCount }}</span>
         </button>
-      </div>
+   
 
       <div v-if="showCart" class="container">
         <div class="column">
@@ -164,7 +166,7 @@
             }
           },
           toggleCart() {
-            this.showCart = !this.showCart;
+            this.showCart = this.showCart ? false : true;
           },
           removeFromCart(item) {
             const index = this.cart.indexOf(item);
