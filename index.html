@@ -26,6 +26,60 @@
           Shopping Cart <span>{{ cartItemCount }}</span>
         </button>
    
+        <script>
+        
+        import lessonList from "./routes/lessons.js";
+        
+        import checkout from "./routes/orders.js";
+         
+        export default {
+        
+          name: "App",
+        
+          components: {
+        
+            lessonList,
+        
+            checkout
+        
+          },
+        
+          data() {
+        
+            return {
+        
+              sitename: "idris after shool program",
+        
+              cart: [],
+        
+              lessons: [],
+        
+              showLessons: true,
+        
+            };
+        
+          },
+        
+          mounted() {            //created function fetches the lessons
+         
+            //fetching the lessons from server
+        
+            fetch("http://localhost:3000")
+        
+              .then(response => {
+        
+                response.json().then(json => {
+        
+                  this.lessons = json;
+        
+                  console.log(json);
+        
+                })
+         
+              });
+         
+          }}
+          </script>
 
       <div v-if="showCart" class="container">
         <div class="column">
