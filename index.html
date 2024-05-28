@@ -1,4 +1,4 @@
-<!DOCTYPE html> <!-- reminder to disables checkout buton if cart= empty and create a show cart page-->
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -20,47 +20,49 @@
       </b>
 
       <button v-on:click="toggleCart">Test</button>
-      
-        <button class="btn btn-primary float-end" :class="{ 'disabled': cart.length === 0 }"
-        @click="toggleCart">
-          Shopping Cart <span>{{ cartItemCount }}</span>
-        </button>
-   
-        <script>
-        
-          </script>
+
+      <button class="btn btn-primary float-end" :class="{ 'disabled': cart.length === 0 }" @click="toggleCart">
+        Shopping Cart <span>{{ cartItemCount }}</span>
+      </button>
+
+      <script>
+
+      </script>
 
       <div v-if="showCart" class="container">
         <div class="column">
           <div class="col-md-12">
 
             <h2>Shopping Cart</h2>
-            <ul class="list-group">
-              <li v-for="item in cart" :key="item.id" class="list-group-item">
+            <div class="card-body">
+              <li v-for="item in cart" :key="item.id" class="card">
                 {{ item.subject }} - aed{{ item.price }}
                 <button @click="removeFromCart(item)" class="btn btn-danger btn-sm float-right">
                   Remove
                 </button>
-              </li>
-            </ul>
+
+            </div>
           </div>
         </div>
 
         <!-- Checkout Functionality -->
         <div>
           <h3>Checkout</h3>
-          <div class="form-group">
-            <input type="text" v-model="name" class="form-control" placeholder="Name" pattern="^[a-zA-Z\s]+$" />
-          </div>
-          <div class="form-group">
-            <input type="number" v-model="phone" class="form-control" placeholder="Phone number" />
+          <form @submit.prevent="checkout">
+            <div class="form-group">
+              <input type="text" v-model="name" class="form-control" placeholder="Name" pattern="^[a-zA-Z\s]+$" />
+            </div>
+            <div class="form-group">
+              <input type="number" v-model="phone" class="form-control" placeholder="Phone number" />
 
-          </div>
-        
-          <button :disabled="!validForm" @click="checkout" class="btn btn-outline-primary" v-bind:disabled="cart.length==0">
-            <span>{{ cartItemCount }}</span>
-            Checkout
-          </button>
+            </div>
+
+            <button :disabled="!validForm" @click="checkout" class="btn btn-outline-primary"
+              v-bind:disabled="cart.length==0">
+              <span>{{ cartItemCount }}</span>
+              Checkout
+            </button>
+          </form>
         </div>
       </div>
 
@@ -100,9 +102,6 @@
                 <p>Location: {{ lesson.location }}</p>
                 <p>Price: AED{{ lesson.price }}</p>
                 <p>Spaces: {{ lesson.spaces }}</p>
-
-                
-
                 <button :disabled="lesson.spaces === 0" @click="addToCart(lesson)" class="btn btn-primary">
                   Add to Cart
                 </button>
@@ -129,8 +128,20 @@
           name: "",
           phone: "",
           showLessons: true,
-        },        
+        },
+        created() {
+          // call the get method when the app is launched
+          this.getLessons();
+        },
         methods: {
+
+          // function to get the lessons from mongodb
+          async getLessons() {
+            var url = 'http://localhost:4000/collection/products';
+            var lessons = await fetch(url);
+            lessons = await lessons.json();
+            this.lessons = lessons;
+          },
           addToCart(lesson) {
             if (lesson.spaces > 0) {
               const item = { ...lesson, spaces: 1 };
@@ -159,17 +170,48 @@
               });
             }
           },
-          checkout() {
-            if (this.validForm) {
-              alert(
-                `Order Submitted Successfully for ${this.name} (${this.phone})`
-              );
-              this.cart = [];
-              this.name = "";
-              this.phone = "";
-              window.location.href = 'Thank you.html';
+
+          async checkout() {
+            const order = {
+              lessons: [...this.cart],
+              username: this.name,
+              phonenumber: this.phone
+
+
+            };
+
+            try {
+              const response = await fetch('http://localhost:4000/collection/orders', {
+                method: 'POST',
+                headers: { 'content-Type': 'application/json' },
+                body: JSON.stringify(order),
+              });
+
+              if (!response.ok) {
+                throw new Error(`Error creating order: ${response.statusText}`);
+              }
+
+
+              alert(`Order created successfully for ${this.name} (phone: ${this.phone})!`);
+
+              UpdateCart(item);
+
+            } catch (error) {
+              console.error('Error:', error.message);
+              // Handle checkout errors (e.g., display error message to user)
             }
           },
+          UpdateCart(item) {
+                const index = this.cart.indexOf(item);
+                if (index !== -1) {
+                  this.cart.splice(index, 1);
+                  const lessonIndex = this.lessons.findIndex((l) => l.id === item.id);
+                  if (lessonIndex !== -1) {
+                    this.lessons[lessonIndex].spaces++; // Update spaces in lessons array
+                  }
+                }
+              }
+
         },
         computed: {
           filteredLessons() {
@@ -198,6 +240,6 @@
             return this.cart.length;
           },
         },
-        });
+      });
     </script>
 </body>
